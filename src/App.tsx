@@ -1,21 +1,6 @@
-import axios from 'axios'
-import { useQuery } from 'react-query'
-import foto from '../public/vite.svg'
 import { api } from './services/api'
-
-interface userProps {
-  bio: string
-  name: string
-  login: string
-  html_url: string
-  avatar_url: string
-}
-
-interface repoProps {
-  name: string
-  language: string
-  html_url: string
-}
+import { useQuery } from 'react-query'
+import { repoProps, userProps } from './types'
 
 function App() {
   const { data: user } = useQuery<userProps>('personal info', async () => {
@@ -57,7 +42,7 @@ function App() {
               {repo?.map(items => (
                 <li key={items.name} className='border-y border-spacing-96 border-gray-800'>
                   <div className='m-2 p-4'>
-                    <h1 className='text-blue-400 text-lg font-semibold hover:underline '><a href={items.html_url}>{items.name}</a></h1>
+                    <h1 className='text-blue-400 text-lg font-semibold hover:underline '><a target='_blank' href={items.html_url}>{items.name}</a></h1>
 
                     <span className='divide-y text-gray-400'>{items.language}</span>
                   </div>
