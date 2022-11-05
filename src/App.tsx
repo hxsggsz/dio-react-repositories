@@ -6,20 +6,24 @@ function App() {
   const { data: user } = useQuery<userProps>('personal info', async () => {
     const response = await api.get('users/hxsggsz')
     return response.data
+  }, {
+    staleTime: Infinity
   })
 
   const { data: repo } = useQuery<repoProps[]>('repos', async () => {
     const response = await api.get<repoProps[]>('users/hxsggsz/repos')
     return response.data
+  }, {
+    staleTime: 1000 * 60
   })
 
   return (
-    <div className='flex w-full h-full bg-gray-background'>
+    <div className='flex flex-row w-full bg-gray-background max-md:flex-row max-sm:flex-col justify-center'>
 
-      <div className='m-8'>
+      <div className='m-8 max-sm:flex justify-center flex-col items-center'>
         <img className='w-64 h-64 rounded-full' src={user?.avatar_url} alt='' />
 
-        <div className='text-white w-96'>
+        <div className='text-white w-96 max-sm:flex justify-center flex-col items-center'>
           <div className='py-10'>
             <a href={user?.html_url}>
               <p className='font-semibold text-2xl'>{user?.name}</p>
@@ -32,7 +36,7 @@ function App() {
 
       </div>
     
-      <main className='m-8 w-full divide-y divide-gray-900 text-white'>
+      <main className='m-8 w-screen divide-y divide-gray-900 text-white max-md: max-sm:w-auto'>
 
         <div className='mt-8 py-10 divide-y divide-gray-900 flex flex-col'>
 
